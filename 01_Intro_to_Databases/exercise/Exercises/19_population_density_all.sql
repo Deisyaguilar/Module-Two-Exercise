@@ -2,4 +2,7 @@
 -- Population density is expressed as people per square kilometer. In other words, population divided by area.
 -- Order the results by population density, lowest first.
 -- (56 rows)
-
+select state_name, population, area, population / area as population_density
+from state
+order by population_density
+limit 56;
