@@ -1,6 +1,7 @@
 package com.techelevator.auctions.services;
 
 import com.techelevator.auctions.model.CredentialsDto;
+import com.techelevator.auctions.model.TokenDto;
 import com.techelevator.util.BasicLogger;
 import org.springframework.http.*;
 import org.springframework.web.client.ResourceAccessException;
@@ -23,6 +24,11 @@ public class AuthenticationService {
         String token = null;
         try {
             // Add code here to send the request to the API and get the token from the response.
+            ResponseEntity<TokenDto> responseEntity = restTemplate.exchange(API_BASE_URL + "login", HttpMethod.POST, entity, TokenDto.class);
+            TokenDto body = responseEntity.getBody();
+            if(body != null){
+                token = body.getToken();
+            }
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
